@@ -1,0 +1,966 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Contact & Démo · CentrConnect</title>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400;1,600&family=Instrument+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+
+:root{
+  --bg:       #FAFAF8;
+  --white:    #FFFFFF;
+  --ink:      #18170F;
+  --muted:    #8C8B84;
+  --border:   #E8E6DF;
+  --border2:  #D4D1C8;
+  --accent:   #2B5CE6;
+  --accent-bg:#EEF2FD;
+  --accent-bd:rgba(43,92,230,0.2);
+  --green:    #16A34A;
+  --green-bg: #F0FDF4;
+  --green-bd: rgba(22,163,74,0.2);
+  --wa:       #25D366;
+  --wa-dark:  #128C7E;
+  --wa-bg:    rgba(37,211,102,0.07);
+  --wa-bdr:   rgba(37,211,102,0.18);
+}
+
+html{scroll-behavior:smooth}
+
+body{
+  background:var(--bg);
+  color:var(--ink);
+  font-family:'Instrument Sans',sans-serif;
+  font-size:15px;
+  line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+  min-height:100vh;
+}
+
+/* ── TOPBAR ── */
+.topbar{
+  padding:16px 28px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  border-bottom:1px solid var(--border);
+  background:var(--white);
+  position:sticky;top:0;z-index:50;
+}
+
+.brand{
+  font-family:'Lora',serif;
+  font-size:17px;font-weight:600;
+  color:var(--ink);letter-spacing:-0.3px;
+  text-decoration:none;
+}
+
+.topbar-badge{
+  display:flex;align-items:center;gap:6px;
+  font-size:11px;font-weight:600;color:var(--green);
+  background:var(--green-bg);border:1px solid var(--green-bd);
+  padding:5px 12px;border-radius:20px;
+}
+
+.dot{
+  width:6px;height:6px;border-radius:50%;
+  background:var(--green);
+  animation:blink 2s ease-in-out infinite;
+}
+
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0.3}}
+
+/* ── LAYOUT ── */
+.page{
+  max-width:560px;
+  margin:0 auto;
+  padding:40px 20px 80px;
+  display:flex;
+  flex-direction:column;
+  gap:16px;
+}
+
+/* ── PROFILE CARD ── */
+.profile-card{
+  background:var(--white);
+  border:1px solid var(--border);
+  border-radius:20px;
+  padding:24px;
+  display:flex;
+  align-items:center;
+  gap:16px;
+  box-shadow:0 2px 12px rgba(0,0,0,0.04);
+  animation:fadeUp 0.45s ease both;
+}
+
+.avatar-wrap{position:relative;flex-shrink:0}
+
+.avatar{
+  width:58px;height:58px;border-radius:50%;
+  background:linear-gradient(135deg,#18170F,#4A4540);
+  display:flex;align-items:center;justify-content:center;
+  border:2px solid var(--border2);
+}
+
+.avatar-letter{
+  font-family:'Lora',serif;
+  font-size:24px;font-weight:700;
+  color:#FAFAF8;line-height:1;
+}
+
+.online-dot{
+  position:absolute;bottom:1px;right:1px;
+  width:13px;height:13px;border-radius:50%;
+  background:var(--wa);border:2px solid white;
+  animation:pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse{
+  0%,100%{box-shadow:0 0 0 0 rgba(37,211,102,0.4)}
+  50%{box-shadow:0 0 0 5px rgba(37,211,102,0)}
+}
+
+.profile-info{}
+
+.profile-name{
+  font-family:'Lora',serif;
+  font-size:20px;font-weight:600;
+  color:var(--ink);letter-spacing:-0.3px;
+  line-height:1.1;margin-bottom:2px;
+}
+
+.profile-role{
+  font-size:12px;color:var(--muted);margin-bottom:5px;
+}
+
+.available-badge{
+  display:inline-flex;align-items:center;gap:5px;
+  font-size:10px;font-weight:700;
+  color:var(--wa-dark);letter-spacing:0.3px;
+}
+
+.available-badge::before{
+  content:'';width:5px;height:5px;border-radius:50%;
+  background:var(--wa);
+  animation:pulse 2s ease-in-out infinite;
+}
+
+/* ── TABS ── */
+.tabs{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  background:var(--white);
+  border:1px solid var(--border);
+  border-radius:16px;
+  padding:4px;
+  gap:4px;
+  animation:fadeUp 0.45s ease 0.05s both;
+}
+
+.tab-btn{
+  padding:11px 16px;
+  border-radius:12px;
+  border:none;
+  background:transparent;
+  font-family:'Instrument Sans',sans-serif;
+  font-size:13px;font-weight:600;
+  color:var(--muted);
+  cursor:pointer;
+  transition:all 0.2s;
+  display:flex;align-items:center;justify-content:center;gap:7px;
+}
+
+.tab-btn.active{
+  background:var(--ink);
+  color:#FAFAF8;
+  box-shadow:0 2px 8px rgba(24,23,15,0.15);
+}
+
+.tab-btn:not(.active):hover{
+  background:var(--bg);color:var(--ink);
+}
+
+/* ── PANELS ── */
+.panel{display:none;animation:fadeUp 0.3s ease both}
+.panel.active{display:flex;flex-direction:column;gap:16px}
+
+/* ── WHATSAPP PANEL ── */
+.msg-card{
+  background:var(--white);
+  border:1px solid var(--border);
+  border-radius:20px;
+  padding:24px;
+  box-shadow:0 2px 12px rgba(0,0,0,0.04);
+}
+
+.card-label{
+  font-size:10px;font-weight:700;
+  letter-spacing:2.5px;text-transform:uppercase;
+  color:var(--muted);margin-bottom:16px;
+  display:flex;align-items:center;gap:8px;
+}
+.card-label::before{content:'';width:16px;height:1px;background:var(--muted);}
+
+.wa-bubble{
+  background:var(--wa-bg);
+  border:1px solid var(--wa-bdr);
+  border-radius:4px 16px 16px 16px;
+  padding:13px 15px;margin-bottom:14px;
+  position:relative;
+}
+
+.wa-bubble::before{
+  content:'';position:absolute;top:0;left:-7px;
+  border-style:solid;border-width:0 7px 7px 0;
+  border-color:transparent var(--wa-bdr) transparent transparent;
+}
+
+.bubble-text{
+  font-size:13.5px;color:var(--ink);
+  line-height:1.65;white-space:pre-line;
+}
+
+.bubble-time{
+  font-size:10px;color:var(--muted);
+  text-align:right;margin-top:5px;
+  display:flex;align-items:center;justify-content:flex-end;gap:3px;
+}
+
+.wa-ticks{color:var(--wa);font-size:11px}
+
+.edit-label{
+  font-size:11px;color:var(--muted);
+  margin-bottom:8px;
+  display:flex;align-items:center;gap:5px;
+}
+
+.msg-textarea{
+  width:100%;
+  background:var(--bg);
+  border:1px solid var(--border2);
+  border-radius:12px;
+  padding:13px 15px;
+  font-size:13px;color:var(--ink);
+  font-family:'Instrument Sans',sans-serif;
+  line-height:1.6;resize:none;outline:none;
+  min-height:96px;
+  transition:border-color 0.2s;
+}
+.msg-textarea:focus{border-color:rgba(37,211,102,0.5)}
+.msg-textarea::placeholder{color:var(--muted)}
+
+/* ── DÉMO PANEL ── */
+.expect-card{
+  background:var(--white);
+  border:1px solid var(--border);
+  border-radius:20px;
+  padding:24px;
+  box-shadow:0 2px 12px rgba(0,0,0,0.04);
+}
+
+.step-list{display:flex;flex-direction:column}
+
+.step-item{
+  display:flex;gap:14px;align-items:flex-start;
+  padding:13px 0;border-bottom:1px solid var(--border);
+}
+.step-item:last-child{border:none;padding-bottom:0}
+.step-item:first-child{padding-top:0}
+
+.step-left{
+  display:flex;flex-direction:column;
+  align-items:center;flex-shrink:0;width:34px;
+}
+
+.step-circle{
+  width:34px;height:34px;border-radius:50%;
+  background:var(--accent-bg);border:1px solid var(--accent-bd);
+  display:flex;align-items:center;justify-content:center;
+  font-size:15px;flex-shrink:0;
+}
+
+.step-line{
+  width:1px;flex:1;min-height:16px;
+  background:linear-gradient(to bottom,var(--border),transparent);
+  margin-top:4px;
+}
+.step-item:last-child .step-line{display:none}
+
+.step-body{flex:1;padding-top:4px}
+
+.step-title{
+  font-size:14px;font-weight:700;
+  color:var(--ink);margin-bottom:2px;
+  letter-spacing:-0.2px;
+}
+
+.step-desc{
+  font-size:12.5px;color:var(--muted);line-height:1.55;
+}
+
+/* INFO 2×2 */
+.info-grid{
+  display:grid;grid-template-columns:1fr 1fr;gap:10px;
+}
+
+.info-card{
+  background:var(--white);
+  border:1px solid var(--border);
+  border-radius:14px;padding:16px 18px;
+  box-shadow:0 1px 8px rgba(0,0,0,0.03);
+}
+
+.info-icon{font-size:18px;margin-bottom:6px;display:block}
+.info-title{font-size:13px;font-weight:700;color:var(--ink);margin-bottom:2px}
+.info-desc{font-size:11.5px;color:var(--muted);line-height:1.5}
+
+/* ── CTA BLOCK ── */
+.cta-card{
+  background:var(--white);
+  border:1px solid var(--border);
+  border-radius:20px;
+  padding:24px;
+  box-shadow:0 2px 12px rgba(0,0,0,0.04);
+}
+
+.cta-title{
+  font-family:'Lora',serif;
+  font-size:20px;font-weight:600;
+  letter-spacing:-0.4px;color:var(--ink);
+  margin-bottom:4px;
+}
+
+.cta-sub{
+  font-size:12.5px;color:var(--muted);
+  margin-bottom:20px;line-height:1.6;
+}
+
+.slots-row{
+  display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px;
+}
+
+.slot{
+  display:flex;align-items:center;gap:5px;
+  padding:7px 13px;
+  background:var(--bg);border:1px solid var(--border2);
+  border-radius:8px;font-size:12px;font-weight:600;
+  color:var(--ink);cursor:pointer;transition:all 0.15s;
+  user-select:none;
+}
+.slot:hover,.slot.selected{
+  border-color:var(--accent);
+  background:var(--accent-bg);color:var(--accent);
+}
+.slot-dot{width:5px;height:5px;border-radius:50%;background:var(--green);flex-shrink:0}
+
+/* ── BUTTONS ── */
+.btns{display:flex;flex-direction:column;gap:10px}
+
+.btn-dark{
+  display:flex;align-items:center;justify-content:center;gap:10px;
+  background:var(--ink);color:#FAFAF8;
+  font-size:15px;font-weight:700;padding:16px 24px;
+  border-radius:14px;text-decoration:none;border:none;
+  cursor:pointer;font-family:'Instrument Sans',sans-serif;
+  letter-spacing:-0.2px;transition:all 0.2s;
+  box-shadow:0 4px 20px rgba(24,23,15,0.15);
+}
+.btn-dark:hover{background:#2d2c21;transform:translateY(-2px);box-shadow:0 8px 28px rgba(24,23,15,0.22)}
+.btn-dark:active{transform:scale(0.98)}
+
+.btn-wa{
+  display:flex;align-items:center;justify-content:center;gap:10px;
+  background:var(--wa);color:#000;
+  font-size:15px;font-weight:700;padding:16px 24px;
+  border-radius:14px;text-decoration:none;border:none;
+  cursor:pointer;font-family:'Instrument Sans',sans-serif;
+  transition:all 0.2s;
+  box-shadow:0 4px 20px rgba(37,211,102,0.25);
+}
+.btn-wa:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(37,211,102,0.38)}
+.btn-wa:active{transform:scale(0.98)}
+
+.wa-icon{width:20px;height:20px;flex-shrink:0}
+
+.btn-outline{
+  display:flex;align-items:center;justify-content:center;gap:9px;
+  background:transparent;color:var(--ink);
+  font-size:14px;font-weight:600;padding:14px 24px;
+  border-radius:14px;text-decoration:none;
+  border:1.5px solid var(--border2);
+  cursor:pointer;font-family:'Instrument Sans',sans-serif;
+  transition:all 0.2s;
+}
+.btn-outline:hover{border-color:var(--ink);background:var(--bg)}
+
+/* ── GUARANTEE ── */
+.guarantee{
+  background:var(--green-bg);
+  border:1px solid var(--green-bd);
+  border-radius:14px;padding:16px 20px;
+  display:flex;gap:12px;align-items:flex-start;
+}
+
+.g-icon{font-size:18px;flex-shrink:0;margin-top:1px}
+.g-title{font-size:13px;font-weight:700;color:var(--green);margin-bottom:2px}
+.g-text{font-size:12px;color:var(--muted);line-height:1.55}
+
+/* ── TRUST ROW ── */
+.trust-row{
+  display:flex;flex-wrap:wrap;
+  align-items:center;justify-content:center;
+  gap:14px;
+}
+
+.trust-item{
+  display:flex;align-items:center;gap:5px;
+  font-size:11px;color:var(--muted);font-weight:500;
+}
+
+/* ── FOOTER ── */
+footer{
+  text-align:center;
+  padding:28px 20px;
+  border-top:1px solid var(--border);
+}
+
+.footer-brand{
+  font-family:'Lora',serif;
+  font-size:13px;font-weight:600;
+  color:var(--muted);letter-spacing:1px;margin-bottom:3px;
+}
+
+footer p{font-size:11.5px;color:var(--muted)}
+
+/* ── MODAL ── */
+.modal-overlay{
+  position:fixed;inset:0;
+  background:rgba(24,23,15,0.45);
+  backdrop-filter:blur(6px);
+  z-index:200;
+  display:flex;align-items:flex-end;justify-content:center;
+  opacity:0;pointer-events:none;
+  transition:opacity 0.3s ease;
+}
+
+.modal-overlay.open{opacity:1;pointer-events:all}
+
+.modal{
+  background:var(--white);
+  border-radius:24px 24px 0 0;
+  width:100%;max-width:480px;
+  padding:24px 22px 36px;
+  transform:translateY(100%);
+  transition:transform 0.4s cubic-bezier(0.34,1.56,0.64,1);
+  position:relative;
+}
+.modal-overlay.open .modal{transform:translateY(0)}
+
+.modal-handle{
+  width:40px;height:4px;border-radius:2px;
+  background:var(--border2);margin:0 auto 20px;
+}
+
+.modal-close{
+  position:absolute;top:18px;right:18px;
+  width:30px;height:30px;border-radius:50%;
+  background:var(--bg);border:1px solid var(--border);
+  display:flex;align-items:center;justify-content:center;
+  font-size:14px;cursor:pointer;color:var(--muted);
+  transition:all 0.2s;
+}
+.modal-close:hover{background:var(--border);color:var(--ink)}
+
+.modal-title{
+  font-family:'Lora',serif;
+  font-size:20px;font-weight:600;
+  color:var(--ink);letter-spacing:-0.4px;margin-bottom:4px;
+}
+
+.modal-sub{
+  font-size:12.5px;color:var(--muted);
+  margin-bottom:20px;line-height:1.6;
+}
+
+.fake-cal{
+  background:var(--bg);border:1px solid var(--border);
+  border-radius:14px;padding:18px;margin-bottom:14px;
+}
+
+.cal-month{
+  font-size:13px;font-weight:700;color:var(--ink);
+  text-align:center;margin-bottom:12px;
+}
+
+.cal-days-header{
+  display:grid;grid-template-columns:repeat(7,1fr);
+  text-align:center;margin-bottom:6px;
+}
+
+.cal-day-name{
+  font-size:10px;font-weight:700;color:var(--muted);
+  letter-spacing:0.5px;padding:3px 0;
+}
+
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:3px}
+
+.cal-cell{
+  aspect-ratio:1;border-radius:7px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:12px;font-weight:500;color:var(--muted);
+}
+
+.cal-cell.available{
+  color:var(--ink);cursor:pointer;
+  background:var(--white);border:1px solid var(--border);
+  font-weight:700;transition:all 0.15s;
+}
+.cal-cell.available:hover{background:var(--accent-bg);border-color:var(--accent);color:var(--accent)}
+.cal-cell.selected{background:var(--ink);border-color:var(--ink);color:#FAFAF8}
+.cal-cell.today{color:var(--accent);font-weight:700}
+
+.time-slots{margin-top:12px}
+
+.time-label{
+  font-size:10px;font-weight:700;
+  letter-spacing:2px;text-transform:uppercase;
+  color:var(--muted);margin-bottom:8px;
+}
+
+.time-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}
+
+.time-btn{
+  padding:9px 6px;border-radius:9px;
+  border:1px solid var(--border2);background:var(--white);
+  font-size:12px;font-weight:700;color:var(--ink);
+  cursor:pointer;text-align:center;transition:all 0.15s;
+  font-family:'Instrument Sans',sans-serif;
+}
+.time-btn:hover{border-color:var(--accent);background:var(--accent-bg);color:var(--accent)}
+.time-btn.selected{background:var(--ink);border-color:var(--ink);color:#FAFAF8}
+
+.confirm-btn{
+  width:100%;background:var(--accent);color:white;
+  border:none;border-radius:12px;padding:14px;
+  font-size:14px;font-weight:700;
+  font-family:'Instrument Sans',sans-serif;
+  cursor:pointer;transition:all 0.2s;
+  box-shadow:0 4px 16px rgba(43,92,230,0.3);
+  margin-top:4px;
+}
+.confirm-btn:hover{background:#1d4ed8;transform:translateY(-1px)}
+.confirm-btn:disabled{
+  background:var(--border2);color:var(--muted);
+  cursor:not-allowed;transform:none;box-shadow:none;
+}
+
+.success-state{
+  text-align:center;padding:16px 0;display:none;
+}
+
+.success-icon{
+  font-size:44px;margin-bottom:14px;display:block;
+  animation:pop 0.4s cubic-bezier(0.34,1.56,0.64,1) both;
+}
+
+@keyframes pop{from{transform:scale(0);opacity:0}to{transform:scale(1);opacity:1}}
+
+.success-title{
+  font-family:'Lora',serif;
+  font-size:20px;font-weight:600;
+  color:var(--ink);margin-bottom:8px;
+}
+.success-text{font-size:13px;color:var(--muted);line-height:1.65}
+
+/* ── CONFETTI ── */
+.confetti-piece{
+  position:fixed;width:8px;height:8px;border-radius:2px;
+  pointer-events:none;animation:fall 1.2s ease forwards;z-index:999;
+}
+@keyframes fall{
+  0%{transform:translateY(-20px) rotate(0deg);opacity:1}
+  100%{transform:translateY(100vh) rotate(720deg);opacity:0}
+}
+
+/* ── ANIM ── */
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(18px)}
+  to{opacity:1;transform:translateY(0)}
+}
+
+</style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<nav class="topbar">
+  <a href="https://392a6c4e8b4c49.lhr.life/services.html" class="brand">CentrConnect</a>
+  <div class="topbar-badge"><div class="dot"></div>Disponible 24h/24</div>
+</nav>
+
+<div class="page">
+
+  <!-- PROFILE -->
+  <div class="profile-card">
+    <div class="avatar-wrap">
+      <div class="avatar"><div class="avatar-letter">C</div></div>
+      <div class="online-dot"></div>
+    </div>
+    <div class="profile-info">
+      <div class="profile-name">Cassandre Auraghi</div>
+      <div class="profile-role">CentrConnect</div>
+      <div class="available-badge">Disponible 24h/24</div>
+    </div>
+  </div>
+
+  <!-- TABS -->
+  <div class="tabs">
+    <button class="tab-btn active" onclick="switchTab('wa')">💬 Écrire sur WhatsApp</button>
+    <button class="tab-btn" onclick="switchTab('demo')">📅 Réserver une démo</button>
+  </div>
+
+  <!-- PANEL WHATSAPP -->
+  <div class="panel active" id="panel-wa">
+
+    <div class="msg-card">
+      <div class="card-label">Message pré-rempli</div>
+
+      <div class="wa-bubble">
+        <div class="bubble-text" id="bubblePreview">Bonjour Cassandre 👋
+
+Je viens de voir votre démonstration de plaque NFC et ça m'intéresse pour mon commerce.
+
+Pourriez-vous me contacter pour en savoir plus ?
+
+Merci !</div>
+        <div class="bubble-time">
+          <span id="msgTime"></span>
+          <span class="wa-ticks">✓✓</span>
+        </div>
+      </div>
+
+      <div class="edit-label">✏️ Personnalisez votre message</div>
+      <textarea class="msg-textarea" id="msgTextarea" rows="4">Bonjour Cassandre 👋
+
+Je viens de voir votre démonstration de plaque NFC et ça m'intéresse pour mon commerce.
+
+Pourriez-vous me contacter pour en savoir plus ?
+
+Merci !</textarea>
+    </div>
+
+    <div class="btns">
+      <a href="#" class="btn-wa" id="waBtn" onclick="sendWA(event)">
+        <svg class="wa-icon" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+        </svg>
+        Envoyer sur WhatsApp
+      </a>
+      <a href="tel:0625490984" class="btn-outline">📞 Appeler — 06 25 49 09 84</a>
+    </div>
+
+    <div class="trust-row">
+      <div class="trust-item">🔒 Confidentiel</div>
+      <div class="trust-item">🎁 Devis gratuit</div>
+      <div class="trust-item">📍 Commerce local</div>
+      <div class="trust-item">🚫 Sans engagement</div>
+    </div>
+
+  </div>
+
+  <!-- PANEL DÉMO -->
+  <div class="panel" id="panel-demo">
+
+    <!-- Ce qui se passe -->
+    <div class="expect-card">
+      <div class="card-label">Ce qui se passe pendant la démo</div>
+      <div class="step-list">
+
+        <div class="step-item">
+          <div class="step-left">
+            <div class="step-circle">👋</div>
+            <div class="step-line"></div>
+          </div>
+          <div class="step-body">
+            <div class="step-title">On échange sur votre commerce</div>
+            <div class="step-desc">Vos clients, vos avis actuels, vos besoins. Pas de pitch — des questions.</div>
+          </div>
+        </div>
+
+        <div class="step-item">
+          <div class="step-left">
+            <div class="step-circle">📡</div>
+            <div class="step-line"></div>
+          </div>
+          <div class="step-body">
+            <div class="step-title">Démo live de la plaque NFC</div>
+            <div class="step-desc">Vous posez votre téléphone dessus, vous voyez exactement ce que verrait votre client.</div>
+          </div>
+        </div>
+
+        <div class="step-item">
+          <div class="step-left">
+            <div class="step-circle">🎯</div>
+            <div class="step-line"></div>
+          </div>
+          <div class="step-body">
+            <div class="step-title">On personnalise pour vous</div>
+            <div class="step-desc">Carte de fidélité, menu digital, avis Google… on choisit ensemble ce qui vous convient.</div>
+          </div>
+        </div>
+
+        <div class="step-item">
+          <div class="step-left">
+            <div class="step-circle">✅</div>
+          </div>
+          <div class="step-body">
+            <div class="step-title">Devis clair, décision à vous</div>
+            <div class="step-desc">Aucune pression. Si ça vous convient, on installe dans la foulée. Sinon, on repart.</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Infos 2×2 -->
+    <div class="info-grid">
+      <div class="info-card">
+        <span class="info-icon">⏱️</span>
+        <div class="info-title">20 minutes chrono</div>
+        <div class="info-desc">On respecte votre temps. La démo tient en 20 min.</div>
+      </div>
+      <div class="info-card">
+        <span class="info-icon">📍</span>
+        <div class="info-title">Chez vous</div>
+        <div class="info-desc">On se déplace à votre commerce. Pas de déplacement pour vous.</div>
+      </div>
+      <div class="info-card">
+        <span class="info-icon">🎁</span>
+        <div class="info-title">100% gratuit</div>
+        <div class="info-desc">La démo ne vous coûte rien, même si vous ne signez pas.</div>
+      </div>
+      <div class="info-card">
+        <span class="info-icon">👤</span>
+        <div class="info-title">Cassandre en direct</div>
+        <div class="info-desc">Pas un stagiaire. Cassandre elle-même se déplace.</div>
+      </div>
+    </div>
+
+    <!-- Créneau + CTA -->
+    <div class="cta-card">
+      <div class="cta-title">Choisissez un créneau</div>
+      <div class="cta-sub">Réponse de confirmation sous 1h.</div>
+
+      <div class="slots-row">
+        <div class="slot selected"><div class="slot-dot"></div>Matin (9h–12h)</div>
+        <div class="slot"><div class="slot-dot"></div>Déjeuner (12h–14h)</div>
+        <div class="slot"><div class="slot-dot"></div>Après-midi (14h–18h)</div>
+      </div>
+
+      <div class="btns">
+        <button class="btn-dark" onclick="openModal()">📅 Réserver ma démo gratuite</button>
+        <a href="tel:0625490984" class="btn-outline">📞 Appeler — 06 25 49 09 84</a>
+      </div>
+    </div>
+
+    <!-- Garantie -->
+    <div class="guarantee">
+      <div class="g-icon">🛡️</div>
+      <div>
+        <div class="g-title">Zéro engagement, zéro pression</div>
+        <div class="g-text">La démo est gratuite et sans condition. Si la plaque ne vous convient pas, on repart sans vous relancer.</div>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-brand">CentrConnect</div>
+  <p>Solutions digitales pour commerces locaux · <a href="tel:0625490984" style="color:inherit">06 25 49 09 84</a></p>
+</footer>
+
+<!-- MODAL CALENDRIER -->
+<div class="modal-overlay" id="modalOverlay" onclick="handleOverlayClick(event)">
+  <div class="modal">
+    <div class="modal-handle"></div>
+    <button class="modal-close" onclick="closeModal()">✕</button>
+
+    <div id="calState">
+      <div class="modal-title">Choisissez une date</div>
+      <div class="modal-sub">Sélectionnez un jour et un créneau — confirmation sous 1h.</div>
+
+      <div class="fake-cal">
+        <div class="cal-month" id="calMonth"></div>
+        <div class="cal-days-header">
+          <div class="cal-day-name">L</div><div class="cal-day-name">M</div>
+          <div class="cal-day-name">M</div><div class="cal-day-name">J</div>
+          <div class="cal-day-name">V</div><div class="cal-day-name">S</div>
+          <div class="cal-day-name">D</div>
+        </div>
+        <div class="cal-grid" id="calGrid"></div>
+        <div class="time-slots" id="timeSlots" style="display:none">
+          <div class="time-label">Créneaux disponibles</div>
+          <div class="time-grid" id="timeGrid"></div>
+        </div>
+      </div>
+
+      <button class="confirm-btn" id="confirmBtn" disabled onclick="confirmBooking()">
+        Confirmer le rendez-vous
+      </button>
+    </div>
+
+    <div class="success-state" id="successState">
+      <span class="success-icon">🎉</span>
+      <div class="success-title">Demande envoyée !</div>
+      <p class="success-text">Cassandre vous confirme le créneau sous 1h.<br><br>Des questions ? <strong>06 25 49 09 84</strong></p>
+    </div>
+  </div>
+</div>
+
+<script>
+
+/* ── TABS ── */
+function switchTab(tab){
+  document.querySelectorAll('.tab-btn').forEach((b,i)=>{
+    b.classList.toggle('active', (i===0&&tab==='wa')||(i===1&&tab==='demo'));
+  });
+  document.getElementById('panel-wa').classList.toggle('active', tab==='wa');
+  document.getElementById('panel-demo').classList.toggle('active', tab==='demo');
+}
+
+/* ── SLOTS ── */
+document.querySelectorAll('.slot').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    document.querySelectorAll('.slot').forEach(b=>b.classList.remove('selected'));
+    btn.classList.add('selected');
+  });
+});
+
+/* ── WHATSAPP ── */
+function updateTime(){
+  const n=new Date();
+  document.getElementById('msgTime').textContent=
+    n.getHours().toString().padStart(2,'0')+':'+n.getMinutes().toString().padStart(2,'0');
+}
+updateTime();
+
+const ta=document.getElementById('msgTextarea');
+const pr=document.getElementById('bubblePreview');
+ta.addEventListener('input',()=>pr.textContent=ta.value);
+
+function sendWA(e){
+  e.preventDefault();
+  confetti();
+  setTimeout(()=>window.open('https://wa.me/33625490984?text='+encodeURIComponent(ta.value.trim()),'_blank'),300);
+}
+
+/* ── MODAL ── */
+let selDay=null,selTime=null;
+
+function openModal(){
+  buildCalendar();
+  document.getElementById('modalOverlay').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+
+function closeModal(){
+  document.getElementById('modalOverlay').classList.remove('open');
+  document.body.style.overflow='';
+}
+
+function handleOverlayClick(e){
+  if(e.target===document.getElementById('modalOverlay')) closeModal();
+}
+
+function buildCalendar(){
+  const now=new Date();
+  const yr=now.getFullYear(),mo=now.getMonth();
+  const mNames=['Janvier','Février','Mars','Avril','Mai','Juin','Juillet','Août','Septembre','Octobre','Novembre','Décembre'];
+  document.getElementById('calMonth').textContent=mNames[mo]+' '+yr;
+  const firstDay=new Date(yr,mo,1).getDay();
+  const offset=firstDay===0?6:firstDay-1;
+  const daysInMonth=new Date(yr,mo+1,0).getDate();
+  const avail=[];
+  for(let d=now.getDate()+1;d<=daysInMonth;d++){
+    if(new Date(yr,mo,d).getDay()!==0) avail.push(d);
+  }
+  const grid=document.getElementById('calGrid');
+  grid.innerHTML='';
+  for(let i=0;i<offset;i++){
+    const c=document.createElement('div');c.className='cal-cell';grid.appendChild(c);
+  }
+  for(let d=1;d<=daysInMonth;d++){
+    const c=document.createElement('div');
+    const isT=d===now.getDate(),isA=avail.includes(d);
+    c.textContent=d;
+    c.className='cal-cell'+(isT?' today':'')+(isA?' available':'');
+    if(isA){
+      c.addEventListener('click',()=>{
+        document.querySelectorAll('.cal-cell').forEach(x=>x.classList.remove('selected'));
+        c.classList.add('selected');
+        selDay=d;selTime=null;
+        document.getElementById('confirmBtn').disabled=true;
+        showTimes();
+      });
+    }
+    grid.appendChild(c);
+  }
+}
+
+function showTimes(){
+  const times=['9h00','10h00','11h00','14h00','15h00','16h00','17h00'];
+  const pick=times.sort(()=>Math.random()-.5).slice(0,5);
+  const g=document.getElementById('timeGrid');
+  g.innerHTML='';
+  pick.forEach(t=>{
+    const b=document.createElement('button');
+    b.className='time-btn';b.textContent=t;
+    b.addEventListener('click',()=>{
+      document.querySelectorAll('.time-btn').forEach(x=>x.classList.remove('selected'));
+      b.classList.add('selected');selTime=t;
+      document.getElementById('confirmBtn').disabled=false;
+    });
+    g.appendChild(b);
+  });
+  document.getElementById('timeSlots').style.display='block';
+}
+
+function confirmBooking(){
+  document.getElementById('calState').style.display='none';
+  document.getElementById('successState').style.display='block';
+  const mNames=['jan','fév','mars','avr','mai','juin','juil','août','sep','oct','nov','déc'];
+  const mo=new Date().getMonth();
+  const msg=`Bonjour Cassandre 👋\n\nJe souhaite réserver une démo NFC le ${selDay} ${mNames[mo]} à ${selTime}.\n\nMerci !`;
+  setTimeout(()=>window.open('https://wa.me/33625490984?text='+encodeURIComponent(msg),'_blank'),700);
+}
+
+/* ── CONFETTI ── */
+function confetti(){
+  const colors=['#25D366','#18170F','#128C7E','#2B5CE6','#FAFAF8'];
+  const btn=document.getElementById('waBtn');
+  const r=btn.getBoundingClientRect();
+  for(let i=0;i<20;i++){
+    const p=document.createElement('div');
+    p.className='confetti-piece';
+    p.style.cssText=`left:${r.left+r.width/2+(Math.random()-.5)*100}px;top:${r.top+r.height/2}px;background:${colors[Math.floor(Math.random()*colors.length)]};width:${4+Math.random()*7}px;height:${4+Math.random()*7}px;animation-delay:${Math.random()*.25}s;animation-duration:${.8+Math.random()*.5}s;`;
+    document.body.appendChild(p);
+    setTimeout(()=>p.remove(),1400);
+  }
+}
+
+/* ── CONTEXT FROM URL ── */
+const from=new URLSearchParams(location.search).get('from');
+if(from){
+  const msgs={nfc:'Je viens de scanner votre plaque NFC et je suis intéressé(e).',landing:'J\'ai vu votre démonstration de landing page NFC.',fidelite:'J\'ai vu votre démonstration de carte de fidélité.',roi:'J\'ai utilisé votre calculateur ROI — ça m\'a convaincu(e) !'};
+  if(msgs[from]){const t=`Bonjour Cassandre 👋\n\n${msgs[from]}\n\nPourriez-vous me contacter ?\n\nMerci !`;ta.value=t;pr.textContent=t;}
+}
+
+</script>
+</body>
+</html>
